@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('organization_id');
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('creator_id');
+            $table->text('name');
+            $table->text('website')->nullable();
+            $table->text('repository_url')->nullable();
             $table->timestamps();
 
             $table->foreign('organization_id')
@@ -28,8 +27,15 @@ class CreateUsersTable extends Migration
                 ->on('organizations')
                 ->cascadeOnDelete();
 
+            $table->foreign('creator_id')
+                ->references('id')
+                ->on('users');
+
+            $table->unique(['organization_id', 'name']);
+
             $table->index('id');
             $table->index('organization_id');
+            $table->index('creator_id');
         });
     }
 
@@ -40,6 +46,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('projects');
     }
 }
