@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/dev/nginx/Dockerfile
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:80"
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: docker/dev/php-fpm/Dockerfile
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - pgsql
+      - redis
+    environment:
+      DB_PORT: ${DB_PORT}
+      DB_HOST: pgsql
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: redis
+  #              PHP_IDE_CONFIG: ${PHP_IDE_CONFIG} # нужен для xdebug
+  php-cli:
+    build:
+      context: ./
+      dockerfile: docker/dev/php-cli/Dockerfile
+    volumes:
+      - ./:/var/www
+    #          user: ${UID}:${UID}
+    depends_on:
+      - pgsql
+      - redis
+    environment:
+      DB_PORT: ${DB_PORT}
+      DB_HOST: pgsql
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_HOST: redis
+    tty: true
+  pgsql:
+    image: postgres:10
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - projectify-postgres:/var/lib/postgresql/data/
+    ports:
+      - "54320:5432"
+  redis:
+    image: redis:5.0
+    ports:
+      - '63791:${REDIS_PORT}'
+  node:
+    build:
+      context: ./
+      dockerfile: docker/dev/node/Dockerfile
+    volumes:
+      - ./:/var/www
+    tty: true
+    ports:
+      - "8081:8080"
+volumes:
+  projectify-postgres:
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.0.0/16
