@@ -10,17 +10,11 @@ RUN apt-get update && apt-get install -y libmcrypt-dev libpq-dev \
     && docker-php-ext-enable mcrypt
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet \
-    && mkdir /.composer \
-    && chown 1000 -R /.composer
-
-RUN composer require predis/predis \
-    && composer require laravel/passport \
-    && composer require laravel/ui 2.4 \
-    && php artisan ui vue --auth
-
-USER 1000
+    && mkdir /.composer
 
 COPY ./docker/dev/php/local /usr/local/etc/php/conf.d
 COPY ./docker/dev/php/conf.d /usr/local/etc/php/conf.d
+
+USER 1000
 
 WORKDIR /var/www

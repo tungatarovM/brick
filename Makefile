@@ -25,7 +25,9 @@ artisan-symlink:
 		docker-compose exec php-cli php artisan storage:link
 
 # Asset commands
-npm-install:
+node:
+		docker-compose exec node
+npm-i:
 		docker-compose exec node npm install
 npm-build:
 		docker-compose exec node npm run build
