@@ -19,6 +19,8 @@ db:
 		docker-compose exec pgsql bash
 migrate:
 		docker-compose exec php-cli php artisan migrate
+key-generate:
+		docker-compose exec php-cli php artisan key:generate
 
 # create symlink inside container
 artisan-symlink:
