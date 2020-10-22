@@ -1,12 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Entity\Account\Entities;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Class User
+ * @package App\Entity\Account\Entities
+ * @property $name
+ * @property $email
+ * @property $password
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -43,4 +50,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrganization(): int
+    {
+        return $this->organization_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->roles()->first()->name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->getRole() === self::ROLE_ADMIN;
+    }
 }

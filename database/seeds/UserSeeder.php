@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
 
-use App\User;
-use App\Organization;
+use App\Entity\Account\Entities\User;
+use App\Entity\Account\Entities\Organization;
 
 class UserSeeder extends Seeder
 {

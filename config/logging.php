@@ -4,6 +4,8 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
+use App\Logging\CriticalFormatter;
+
 return [
 
     /*
@@ -99,6 +101,12 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+        'critical' => [
+            'driver' => 'single',
+            'tap' => [CriticalFormatter::class],
+            'path' => storage_path('/logs/critical.log'),
+            'level' => 'debug',
+        ]
     ],
 
 ];
