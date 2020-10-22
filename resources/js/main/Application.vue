@@ -1,13 +1,15 @@
 <template>
-  <div class="bg-blue-200">
-    <div class="flex justify-center pt-16">
-      Application
-    </div>
-  </div>
+  <dashboard></dashboard>
 </template>
 
 <script>
+import Dashboard from './views/Dashboard/Index';
+
 export default {
-  name: "Application"
+  name: "Application",
+  props: {},
+  components: {
+    Dashboard,
+  }
 }
 </script>
