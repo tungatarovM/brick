@@ -1,9 +1,9 @@
 <template>
-  <div class="side-bar__wrapper">
 
-  </div>
 </template>
 
 <script>
-
+export default {
+  name: "Sidebar"
+}
 </script>

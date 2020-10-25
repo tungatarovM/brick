@@ -15,7 +15,7 @@ class Setting extends Model
 
     public function defaultAvatarByRole(string $role): string
     {
-        $avatars = $this->byKey('default_avatars');
+        $avatars = json_decode($this->byKey('default_avatars'));
 
         $this->checkProperty($avatars, $role);
 
@@ -24,11 +24,9 @@ class Setting extends Model
 
     public function defaultPositionByRole(string $role): string
     {
-        $positions = $this->byKey('default_positions');
+        $translation = "account.position." . $role;
 
-        $this->checkProperty($positions, $role);
-
-        return $positions->$role;
+        return trans($translation, [], 'en');
     }
 
     public function byKey(string $key)
@@ -41,7 +39,7 @@ class Setting extends Model
             throw new \Exception("Setting with given key $key not found");
         }
 
-        return $value;
+        return $value->setting_value;
     }
 
     private function checkProperty(stdClass $settingValue, string $property)

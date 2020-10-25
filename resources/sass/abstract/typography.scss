@@ -1,0 +1,15 @@
+.heading {
+    &__two {
+        font-size: $size-6;
+    }
+
+    &__third {
+        font-size: $size-5;
+        font-weight: 700;
+    }
+}
+
+.text-error {
+    color: $red;
+    font-size: 14px;
+}

@@ -4,6 +4,17 @@ namespace App\Entity\Account\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class UserProfile
+ * @package App\Entity\Account\Entities
+ * @property integer $id
+ * @property integer $user_id
+ * @property string $avatar
+ * @property string $position
+ * @property string $status
+ * @property \stdClass  $breaks
+ * @property \stdClass shift
+ */
 class UserProfile extends Model
 {
     const STATUS_ACTIVE = 'active';
@@ -24,6 +35,9 @@ class UserProfile extends Model
         'breaks' => 'object',
     ];
 
+    /**
+     * @return \stdClass
+     */
     public static function defaultShiftTime(): \stdClass
     {
         $shift = new \stdClass();
@@ -34,6 +48,9 @@ class UserProfile extends Model
         return $shift;
     }
 
+    /**
+     * @return \stdClass
+     */
     public static function defaultBreakTime(): \stdClass
     {
         $break = new \stdClass();
@@ -41,5 +58,23 @@ class UserProfile extends Model
         $break->breaks = [ self::DEFAULT_BREAK_TIME ];
 
         return $break;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    public function getShift(): \stdClass
+    {
+        return $this->shift;
+    }
+
+    public function getBreaks(): \stdClass
+    {
+        return $this->breaks;
     }
 }

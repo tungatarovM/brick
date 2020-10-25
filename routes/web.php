@@ -2,10 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->to('/login');
-});
+// Auth not required
+Route::get('/', 'Home\Web\HomeController@index')->name('home');
+Route::get('/current-user', 'Account\Web\AccountController@currentUser');
 
 Auth::routes();
-
-Route::get('/home', 'Home\Web\HomeController@index')->name('home');

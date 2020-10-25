@@ -1,0 +1,26 @@
+.auth {
+    &__wrapper {}
+
+    &__header {
+        margin: 0 auto;
+        padding-top: $size-5;
+        width: 95%;
+    }
+
+    &__inner {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    &__box {
+        min-width: 450px;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-between;
+    }
+}

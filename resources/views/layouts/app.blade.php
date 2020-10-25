@@ -14,12 +14,12 @@
     <script src="{{ asset('js/main/app.js') }}" defer></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 </head>
 <body>
     <div id="app">
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

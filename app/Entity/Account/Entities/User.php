@@ -13,6 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property $name
  * @property $email
  * @property $password
+ * @property $organization_id
+ * @property UserProfile $profile
  */
 class User extends Authenticatable
 {
@@ -52,6 +54,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile()
@@ -60,11 +70,27 @@ class User extends Authenticatable
     }
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 
     /**
