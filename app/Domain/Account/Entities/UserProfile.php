@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity\Account\Entities;
+namespace App\Domain\Account\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UserProfile
- * @package App\Entity\Account\Entities
+ * @package App\Domain\Account\Entities
  * @property integer $id
  * @property integer $user_id
  * @property string $avatar

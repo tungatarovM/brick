@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity\Account\Entities;
+namespace App\Domain\Account\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Organization
- * @package App\Entity\Account\Entities
+ * @package App\Domain\Account\Entities
  * @property int $id
  * @property string $name
  * @property string $website

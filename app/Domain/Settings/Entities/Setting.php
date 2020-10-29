@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Settings\Entities;
+namespace App\Domain\Settings\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use stdClass;

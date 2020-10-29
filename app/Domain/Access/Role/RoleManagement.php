@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Entity\Account\Services\User;
-
+namespace App\Domain\Access\Role;
 
 use Spatie\Permission\Models\Role;
 

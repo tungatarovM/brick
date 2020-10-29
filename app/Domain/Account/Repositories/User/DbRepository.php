@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Entity\Account\Repositories\User;
+namespace App\Domain\Account\Repositories\User;
 
-use App\Entity\Account\Entities\User;
-use App\Entity\Account\Entities\UserProfile;
-use App\Entity\Account\Entities\UserProfileHelper;
-use App\Entity\Account\Repositories\User\UserRepositoryInterface;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
+use App\Domain\Account\Entities\User;
+use App\Domain\Account\Entities\UserProfile;
+use App\Domain\Account\DTO\Account as AccountDTO;
 
 class DbRepository implements UserRepositoryInterface
 {
@@ -21,24 +21,29 @@ class DbRepository implements UserRepositoryInterface
     }
 
     /**
-     * @param array $attributes
+     * @param AccountDTO $attributes
      * @throws \Exception
      * @return User
      */
-    public function create(array $attributes): User
+    public function create(AccountDTO $attributes): User
     {
-        if (!Arr::exists($attributes, 'role')) {
+        if ($attributes->filled('role')) {
             throw new \Exception(trans('error.key', [ 'key' => 'role' ]));
         }
 
         try {
             DB::beginTransaction();
 
-            $user = User::create($attributes);
+            $user = User::create([
+                'name' => $attributes->name,
+                'email' => $attributes->email,
+                'password' => Hash::make($attributes->password),
+                'organization' => $attributes->organization_id,
+            ]);
 
             $user->profile()->create([
-                'avatar' => $attributes['default_avatar'],
-                'position' => $attributes['position'],
+                'avatar' => $attributes->avatar,
+                'position' => $attributes->position,
                 'status' => UserProfile::STATUS_ACTIVE,
                 'shift' => UserProfile::defaultShiftTime(),
                 'break' => UserProfile::defaultBreakTime(),
@@ -53,9 +58,14 @@ class DbRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function update(array $attributes): User
+    /**
+     * @param AccountDTO $attributes
+     * @return User
+     * @throws \Exception
+     */
+    public function update(AccountDTO $attributes): User
     {
-        if (!Arr::exists($attributes, 'id')) {
+        if (!$attributes->filled('id')) {
             throw new \Exception(trans('account.validation.required', [ 'key' => 'id' ]));
         }
 

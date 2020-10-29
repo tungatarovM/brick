@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Account\Entities;
+namespace App\Domain\Account\Entities;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
- * @package App\Entity\Account\Entities
+ * @package App\Domain\Account\Entities
  * @property $name
  * @property $email
  * @property $password
