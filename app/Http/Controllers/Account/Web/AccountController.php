@@ -11,6 +11,8 @@ class AccountController extends Controller
 {
     public function currentUser(Request $request)
     {
-        return new UserResource($request->user());
+        if (!$user = $request->user()) return false;
+
+        return new UserResource($user);
     }
 }
