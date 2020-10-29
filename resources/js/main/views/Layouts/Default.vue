@@ -1,19 +1,19 @@
 <template>
   <div class="layout-default">
-    <sidebar></sidebar>
+    <navbar></navbar>
     <main-area></main-area>
   </div>
 </template>
 
 <script>
-import Sidebar from "../../components/Layout/Sidebar";
+import Navbar from "../../components/Layout/Navbar";
 import MainArea from "./MainArea";
 
 export default {
   name: "Default",
   props: {},
   components: {
-    Sidebar, MainArea,
+    Navbar, MainArea,
   }
 }
 </script>

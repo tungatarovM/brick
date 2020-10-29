@@ -1,9 +1,10 @@
 import * as api from '../constants/api';
+import User from "../entities/User";
 
 export const currentUser = async () => {
   const { data: { data } } = await axios.get(api.API_CURRENT_USER);
 
-  return data;
+  return new User(data);
 };
 
 export const login = async (login, password) => {

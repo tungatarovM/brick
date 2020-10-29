@@ -1,18 +1,14 @@
 import forEach from 'lodash/forEach';
-
-const fields = [
-  'name', 'email', 'organizationId',
-  'organizationName', 'avatar', 'shift', 'breaks',
-];
+import User from "../../../core/entities/User";
 
 export default {
-  setUser: (state, payload) => {
-    forEach(fields, (field) => {
-      state[field] = payload[field];
+  setUser: (state, user) => {
+    forEach(User.fillable, (field) => {
+      state[field] = user[field];
     });
   },
   clear: (state) => {
-    forEach(fields, (field) => {
+    forEach(User.fillable, (field) => {
       state[field] = '';
     });
   },

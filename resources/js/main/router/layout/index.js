@@ -1,6 +1,9 @@
 import * as routes from '../../../core/constants/routes';
 import Layout from '../../views/Layouts/Default';
 import dashboard from "./dashboard";
+import projects from "./projects";
+import staff from "./staff";
+import tickets from "./tickets";
 
 export default [
   {
@@ -9,6 +12,9 @@ export default [
     component: Layout,
     children: [
       ...dashboard,
+      ...projects,
+      ...staff,
+      ...tickets,
     ]
   }
 ];
